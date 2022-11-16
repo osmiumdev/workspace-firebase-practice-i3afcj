@@ -30,7 +30,7 @@ $(".sampleSurvey input[type='submit']").click(function (e) {
   console.log(outputData);
 
 
-  firebase
+    firebase
     .firestore()
     .collection('surveydata')
     .doc('Matt')
@@ -38,38 +38,48 @@ $(".sampleSurvey input[type='submit']").click(function (e) {
       choice: 'A',
       comm: 'test' + iter,
     });
-    iter++;
 
-    console.log(iter);
+  iter++;
+
+
+  console.log(iter);
 
 });
 
-var count = [0, 0, 0, 0, 0];
+firebase
+  .firestore()
+  .collection('surveydata')
+  .onSnapshot(function (querySnapshot) {
 
-firebase.firestore().collection("surveyData").onSnapshot(function(querySnapshot){
-  querySnapshot.forEach((doc) => {
-    console.log("document -- ", doc.data().choice);
-    var s = doc.data().choice;
-    console.log(s);
-    switch(s){
-      case "A":
-        count[0]++;
-        break;
-      case "B":
-        count[1]++;
-        break;
-      case "C":
-        count[2]++;
-        break;
-      case "D":
-        count[3]++;
-        break;
-      case "E":
-        count[4]++;
-        break;
-      default:
-        console.log("Invalid Data: " + s);
-        break;
-    }
-  })
-});
+    var count = [0, 0, 0, 0, 0];
+
+    querySnapshot.forEach((doc) => {
+      var s = doc.data().choice;
+      console.log(s);
+      switch (s) {
+        case 'A':
+          count[0]++;
+          $('#ans1').text(count[0]);
+          break;
+        case 'B':
+          count[1]++;
+          $('#ans2').text(count[1]);
+          break;
+        case 'C':
+          count[2]++;
+          $('#ans3').text(count[2]);
+          break;
+        case 'D':
+          count[3]++;
+          $('#ans4').text(count[3]);
+          break;
+        case 'E':
+          count[4]++;
+          $('#ans5').text(count[4]);
+          break;
+        default:
+          console.log('Invalid Data: ' + s);
+          break;
+      }
+    });
+  });
