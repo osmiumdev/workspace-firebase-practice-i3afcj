@@ -21,16 +21,13 @@ $(".sampleSurvey input[type='submit']").click(function (e) {
   // get the value of the form using serializeArray method
 
   var inputData = $('form').serializeArray();
-  console.log(inputData);
 
   var outputData = {};
   inputData.forEach((entry) => {
     outputData[entry.name] = entry.value;
   });
-  console.log(outputData);
 
-
-    firebase
+  firebase
     .firestore()
     .collection('surveydata')
     .doc('Matt')
@@ -41,16 +38,13 @@ $(".sampleSurvey input[type='submit']").click(function (e) {
 
   iter++;
 
-
   console.log(iter);
-
 });
 
 firebase
   .firestore()
   .collection('surveydata')
   .onSnapshot(function (querySnapshot) {
-
     var count = [0, 0, 0, 0, 0];
 
     querySnapshot.forEach((doc) => {

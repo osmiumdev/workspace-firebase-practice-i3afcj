@@ -1,13 +1,12 @@
-var firebaseConfig = {
-  apiKey: 'AIzaSyAzcwgZuLA7dO9g4sQhXQVTUgCo0M8m2qM',
-  authDomain: 'grocerylist-91956.firebaseapp.com',
-  databaseURL: 'https://grocerylist-91956.firebaseio.com',
-  projectId: 'grocerylist-91956',
-  storageBucket: 'grocerylist-91956.appspot.com',
-  messagingSenderId: '813812426276',
-  appId: '1:813812426276:web:93e5897af12892ff78dab1',
-  measurementId: 'G-VZ83BTR72T',
+const firebaseConfig = {
+  apiKey: 'AIzaSyBmAO-kCGYr-UXiVhXQcfQiHHdpZpZ6Yak',
+  authDomain: 'hotel-b43e3.firebaseapp.com',
+  projectId: 'hotel-b43e3',
+  storageBucket: 'hotel-b43e3.appspot.com',
+  messagingSenderId: '123884470923',
+  appId: '1:123884470923:web:8315686b30d92436ad4a8e',
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -16,8 +15,8 @@ $('#Login').submit(function (e) {
   e.preventDefault();
   // get the user name and password from form
   // You need to change this.
-  var email = 'yilianz4@gmail.com';
-  var password = 'ddsgagafda';
+  var email = $('#Login').find('input[name="login"]').val();
+  var password = $('#Login').find('input[name="pwd"]').val();
 
   firebase
     .auth()
@@ -38,10 +37,8 @@ $('#Login').submit(function (e) {
       }
     })
     .catch((error) => {
-
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(errorMessage);
     });
 });
-
