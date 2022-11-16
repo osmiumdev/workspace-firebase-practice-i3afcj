@@ -13,6 +13,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+var iter = 0;
 // save the data
 $(".sampleSurvey input[type='submit']").click(function (e) {
   e.preventDefault();
@@ -28,21 +29,47 @@ $(".sampleSurvey input[type='submit']").click(function (e) {
   });
   console.log(outputData);
 
-  var i = 0;
-  while (true) {
-    firebase
-      .firestore()
-      .collection('surveydata')
-      .doc('Matt')
-      .set({
-        choice: 'A',
-        comm: 'test' + i,
-      });
 
-    sleep(500);
-  }
+  firebase
+    .firestore()
+    .collection('surveydata')
+    .doc('Matt')
+    .set({
+      choice: 'A',
+      comm: 'test' + iter,
+    });
+    iter++;
+
+    console.log(iter);
+
 });
 
-function sleep(time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
+var count = [0, 0, 0, 0, 0];
+
+firebase.firestore().collection("surveyData").onSnapshot(function(querySnapshot){
+  querySnapshot.forEach((doc) => {
+    console.log("document -- ", doc.data().choice);
+    var s = doc.data().choice;
+    console.log(s);
+    switch(s){
+      case "A":
+        count[0]++;
+        break;
+      case "B":
+        count[1]++;
+        break;
+      case "C":
+        count[2]++;
+        break;
+      case "D":
+        count[3]++;
+        break;
+      case "E":
+        count[4]++;
+        break;
+      default:
+        console.log("Invalid Data: " + s);
+        break;
+    }
+  })
+});
